@@ -1,0 +1,54 @@
+{
+    "name": "api",
+    "keywords": [
+        "nodejs",
+        "koa",
+        "microservice",
+        "main"
+    ],
+    "version": "0.1.0",
+    "description": "Main APIs for Green Plaza",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index",
+        "dev": "NODE_ENV=dev nodemon --watch",
+        "debug": "NODE_ENV=dev node --inspect index",
+        "lint": "eslint *.js tests/*.js --fix",
+        "test": "NODE_ENV=test nyc mocha tests/*.js",
+        "coverage": "nyc report --reporter=html"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "tests/*",
+            "node_modules/*",
+            ".nyc_output/*",
+            "coverage/*",
+            "docs/*"
+        ]
+    },
+    "dependencies": {
+        "@koa/cors": "^3.0.0",
+        "@koa/router": "^8.0.2",
+        "dotenv": "^8.2.0",
+        "@hapi/joi": "^16.1.7",
+        "koa": "^2.11.0",
+        "koa-bodyparser": "^4.2.1",
+        "koa-helmet": "^5.2.0",
+        "koa-logger": "^3.2.1",
+        "nodemon": "^1.19.4",
+        "uuid": "^3.3.3"
+    },
+    "devDependencies": {
+        "mocha": "^6.2.2",
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "nyc": "^14.1.1",
+        "eslint": "^6.6.0"
+    },
+    "author": {
+        "name": "Salar Hafezi",
+        "email": "salar.hfz@gmail.com"
+    },
+    "license": "MIT",
+    "private": true
+}
