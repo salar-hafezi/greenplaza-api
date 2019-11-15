@@ -43,7 +43,8 @@
         "chai": "^4.2.0",
         "chai-http": "^4.3.0",
         "nyc": "^14.1.1",
-        "eslint": "^6.6.0"
+        "eslint": "^6.6.0",
+        "eslint-config-google": "^0.14.0"
     },
     "author": {
         "name": "Salar Hafezi",
