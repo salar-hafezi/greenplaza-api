@@ -3,6 +3,7 @@ const {
     registerSchema,
     mobile_schema,
     confirmAccountSchema,
+    loginSchema
 } = require('../schemes/users/index');
 const {
     retrieveOneWithMobile,
@@ -14,6 +15,7 @@ const messages = require('../constants/messages');
 const { users_statuses, users_types, users_otac_config } = require('../constants/index');
 const { SALT_ROUNDS } = require('../constants/index');
 const { generateOtac } = require('../lib/helpers/utils');
+const JWTHelper = require('../lib/helpers/jwt');
 
 const registerHandler = async ctx => {
     try {
@@ -230,8 +232,68 @@ const confirmAccountHandler = async ctx => {
     }
 };
 
-const loginHandler = ctx => {
-
+const loginHandler = async ctx => {
+    try {
+        const validation_result = loginSchema.validate(ctx.request.body);
+        if (validation_result.error) {
+            ctx.status = 400;
+            ctx.body = {
+                message: validation_result.error.message
+            };
+        } else {
+            const { mobile, password } = ctx.request.body;
+            const alreadyExistingUser = await retrieveOneWithMobile({
+                db: ctx.db,
+                mobile: mobile
+            });
+            if (alreadyExistingUser) {
+                const { status, password_hash, id, type } = alreadyExistingUser;
+                if (status === users_statuses.CONFIRMED) {
+                    const match = await bcrypt.compare(password, password_hash);
+                    if (match) {
+                        // create JWT
+                        const token = JWTHelper.sign({
+                            iss: 'greenPlaza',
+                            sub: id,
+                            type: type,
+                            iat: Date.now(),
+                        }, ctx.jwtPrivateKey)
+                        if (token && token.length > 0) {
+                            ctx.status = 200;
+                            ctx.body = {
+                                token: token
+                            };
+                        } else {
+                            ctx.status = 500;
+                            ctx.body = {
+                                message: messages.server.SERVER_ERROR
+                            };
+                        }
+                    } else {
+                        ctx.status = 401;
+                        ctx.body = {
+                            message: messages.users.INVALID_CREDENTIALS
+                        };
+                    }
+                } else {
+                    ctx.status = 403;
+                    ctx.body = {
+                        message: messages.users.FORBIDDEN
+                    };
+                }
+            } else {
+                ctx.status = 404;
+                ctx.body = {
+                    message: messages.users.NOT_FOUND
+                };
+            }
+        }
+    } catch (error) {
+        ctx.status = 500;
+        ctx.body = {
+            message: error.message
+        };
+    }
 };
 
 const resetPasswordOtacHandler = ctx => {

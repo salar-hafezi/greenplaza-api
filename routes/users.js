@@ -13,7 +13,7 @@ module.exports = router => {
                     await handlers.confirmAccountHandler(ctx);
                     break;
                 case users_actions.LOGIN:
-                    handlers.loginHandler(ctx);
+                    await handlers.loginHandler(ctx);
                     break;
                 case users_actions.RESET_PASSWORD:
                     handlers.resetPasswordHandler(ctx);

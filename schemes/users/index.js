@@ -35,6 +35,11 @@ const registerSchema = Joi.object().keys({
     password: password_schema
 });
 
+const loginSchema = Joi.object().keys({
+    mobile: mobile_schema,
+    password: password_schema
+});
+
 const confirmAccountSchema = Joi.object().keys({
     mobile: mobile_schema,
     confirm_req_otac: otac_schema
@@ -44,4 +49,5 @@ module.exports = {
     registerSchema,
     mobile_schema,
     confirmAccountSchema,
+    loginSchema
 };

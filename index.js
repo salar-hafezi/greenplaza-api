@@ -19,6 +19,9 @@ if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test')
 // db setup
 const db = getDB();
 app.context.db = db;
+// JWT setup
+app.context.jwtPrivateKey = process.env.JWT_PRIVATE_KEY.replace(/\\n/g, '\n');
+app.context.jwtPublicKey = process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n');
 // server setup
 app.use(cors());
 app.use(helmet());

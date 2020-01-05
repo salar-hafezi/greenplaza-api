@@ -12,8 +12,8 @@ exports.OTAC_LENGTH = 8;
 // users
 exports.users_actions = {
     REGISTER: 'register',
-    CONFIRM_ACCOUNT_OTAC: 'confirm_account_otac',
-    CONFIRM_ACCOUNT: 'confirm_account',
+    CONFIRM_ACCOUNT_OTAC: 'confirm-account-otac',
+    CONFIRM_ACCOUNT: 'confirm-account',
     LOGIN: 'login',
     RESET_PASSWORD_OTAC: 'reset_password_otac',
     RESET_PASSWORD: 'reset_password'

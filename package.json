@@ -38,7 +38,8 @@
         "pg": "^7.16.0",
         "nodemon": "^1.19.4",
         "uuid": "^3.3.3",
-        "bcrypt": "^3.0.7"
+        "bcrypt": "^3.0.7",
+        "jsonwebtoken": "^8.5.1"
     },
     "devDependencies": {
         "chai": "^4.2.0",
