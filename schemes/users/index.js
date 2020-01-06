@@ -21,8 +21,12 @@ const mobile_schema = Joi.string().error(new Error('mobile is required'))
     .required();
 
 const password_schema = Joi.string()
-    .pattern(new RegExp(PASSWORD_REGEX))
+    .max(32).error(new Error('Password must be at most 32 characters'))
+    .min(8).error(new Error('Password must be at least 8 characters'))
     .required();
+// Joi.string()
+//     .pattern(new RegExp(PASSWORD_REGEX))
+//     .required();
 
 const otac_schema = Joi.string()
     .length(OTAC_LENGTH)

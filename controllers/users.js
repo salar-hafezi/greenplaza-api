@@ -113,10 +113,7 @@ const confirmAccountOtacHandler = async ctx => {
                         });
                         if (updated_user) {
                             ctx.status = 200;
-                            ctx.body = {
-                                mobile: updated_user.mobile,
-                                confirm_req_otac: updated_user.confirm_req_otac
-                            };
+                            console.log(updated_user.confirm_req_otac);
                         } else {
                             ctx.status = 500;
                             ctx.body = {
